@@ -29,19 +29,34 @@
 
    \section{SOLUTION}
    DRL-DISASTERVC(3D) is a heuristic DRL method that consists of a distributed, asynchronous DRL framework. The framefork is based on IMPALA and uses a repetetive experience relay for improved learning efficiency an attentive 3D convolutional neural network (CNN) with auxiliary pixel control for spatial exploration.
-   \subsection{Distributed DRL Framework with RER}
+
+   \subsection{Distributed DRL Framework with Repetetive Experience Relay (RER)}
+   A multi-actor-one-learner architecture is adapted from IMPALA where multiple actors (UVs) asynchronously work to generate MDP tuples by interacting with an environment. However, in IMPALA each MDP tuple is only used once, and the quality of learning from sampled experiences determines the accuracy and speed of training. Time and accuracy are essential in the domain of disaster recovery, so the team behind the paper introduces RER to enhance learning stability. There RER stores $b_M$ batches of experiences and can traverse these experiences $b_k$ times. After visiting a batch, the RER scrolls to a new batch. Everytime a batch is visited, a counter is updated, and when the counter reaches $b_k$, the batch is thrown away and replaced with a new one. One thing to note is that the dimmensions of the action space for multiple UVs expands tremendously compared to a single UV case, and this expansion leads to larger differences in local policies used by UVs. To stabilize this, a clipped target network is introduced. The target network of policies is periodically synchronized with the learner's policy network output. \textbf{Finish Clipped Target Network Part}
+   
    \subsection{Attentive 3D CNN convolution with Pixel Control}
+   A 3D CNN with multi-head-relational attention (MHRA) is used for spatial modeling, and auxiliary pixel control is added for spatial exploration.
+   
    \subsection{Algorithm Design}
-
+   There are two parts to the algorithm, multiple actors and a central learner.
+   
    \section{EVALUATION}
-   \subsection{DISASTERSIM}
+   To evaluate the proposed model, the team behind the paper designed a simulator (DisasterSim) for VC in disaster response scenarios.
+   
+   \subsection{DisasterSim}
+   DisasterSim was built using Unity 2018.3.14f1, Python 3.7.7m and Tensorboard 2.3.0. There are three layers to the simulation, the data layer, model layer, and visualization layer. The data layer contains scene configuration and model data...
+   
    \subsection{Experiment}
+   The team conducted an ablation study to measure the effectiveness of MHRA and PC and tested how hyperparameter tuning can affect performance.
+   
    \subsection{Results}
-
+   Results were good.
+   
    \section{STRENGTHS}
-
+   Paper very strong.
+   
    \section{WEAKNESSES}
-
+   Tough one here.
+   
    \section{YOUR SOLUTION}
-
+   I don't have a better solution.
 \end{document}
