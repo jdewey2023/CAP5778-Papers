@@ -1,0 +1,64 @@
+\documentclass[sigconf,natbib=false]{acmart}
+
+\newcommand{\agg}{\textbf{Aggregate($\cdot$)}}
+\newcommand{\ext}{\textbf{Extract($\cdot$)}}
+
+\begin{document}
+	\title{Summary of GPT-GNN: Generative Pre-Training of Graph Neural Networks}
+	\author{John Dewey, jcd18c}
+	\email{jcd18c@fsu.edu}
+	\settopmatter{printacmref=false}
+
+	\maketitle
+
+	\section{INTRODUCTION}
+	
+Graph neural networks (GNNs) demonstrate themselves to be powerful tools for modeling graph-structured data, and pre-training, the process of tuning parameters on one task to improve training on others, has shown tremendous benefits to the performance of many downstream applications in fields such as natural language processing (NLP) and computer vision (CV). However, different tasks performed on the same graph require enough different sets of labeled data for training, and it is usually arduously expensive/infeasible to access a sufficient amount of data, especially with large-scale graphs. For this reason the paper aims to pre-train GNNs for graph mining with the goal of capturing semantic and structural properties of a graph to easily generalize to any downstream tasks within a few fine-tuning steps on graphs of the same domain.
+
+	\section{EXISTING APPROACHES}
+	\subsection{Preliminaries}
+Preliminary work with GNNs has yielded two basic operators, \agg{} and \ext{}. The $mean$, $sum$, and $max$ functions make up the basic operators of \agg{} (but more complex pooling and normalization functions can be used as well), and the \agg{} function serves to aggregate neighborhood information of a node. The \ext{} function is a neighbor information extractor, and it uses a node's representation and an edge between two nodes to extract useful information from the source node. There are various GNN architectures proposed under this framework, such as the graph convolutional network (GCN) and GraphSAGE. There are many that also incorporate an attention mechanism into GNNs like the graph attention network (GAT) and heterogeneous graph transformer (HGT), and these attention-based models implement \ext{} by estimating each source node's importance and applying a weighted aggregation based on the estimation. The pre-training framework presented in the paper, GPT-GNN, applies to all these GNN models.
+
+	\subsection{Existing Pre-training Methods}
+Previous work proposed pre-training to learn node representations that largely belong to two categories, network/graph embedding and transfer learning setting. Network/graph embeddings can't be used to initialize other models for fine-tuning over other tasks, so the paper focuses on a transfer learning setting to pre-train a generic GNN to deal with different tasks. Various propositions have been explored for pre-training with unannotated data. For example, Variational Graph Auto-Encoders were proposed to reconstruct graph structures and the previously mentioned GraphSAGE can optimize the Variational Graph Auto-Encoders through unsupervised loss using a similarity metric based on random walks, Graph Infomax can maximize mutual information between node representations from GNNs and a pooled graph representation. These methods showed improvement over pure supervised learning, the learning tasks can be completed by forcing nearby nodes to have similar embeddings which ignores the semantics and structure of a graph.
+
+	\section{SYSTEM OVERVIEW}
+	\subsection{Generative Pre-Training Framework}
+
+	\subsection{Factorizing Attributed Graph Generation}
+
+	\subsection{Efficient Attribute and Edge Generation}
+
+	\subsection{Heterogeneous and Large Graphs}
+
+
+	\section{EVALUATION}
+	\subsection{Experiment Setup}
+	Datasets \& tasks. Base GNN model selection. Pre-training baselines.
+	\subsection{Pre-Training and Fine-Tuning Setup}
+	Two setups - time transfer \& field transfer. Field transfer more practical,
+	but using both yields best results. Selection of training, validation, and
+	testing sets and limits on labels.
+	\subsection{Results}
+	Discuss paper results.
+
+	\section{STRENGTHS}
+The paper rigorously
+
+	\section{WEAKNESS}
+The paper uses two different datasets with different downstream tasks, and uses
+two different evaluation metrics for the sets: MRR for downstream tasks for data
+from the Open Academic Graph and micro F1-score for downstream tasks performed
+on data from the Amazon Review Recommendation Dataset. While there may be a
+reason to use the different metrics, it is not presented in the paper, so it is
+unknown if they used these metrics for more accurate data or for more impressive
+results. Furthermore, the team selected training, validation, and testing sets
+from data in a peculiar manner when setting up pre-training and fine-tuning.
+Instead of randomly selecting items for each set, they chose nodes from 2014 to
+2016 for training, nodes from 2017 for validation, and nodes from 2018 for
+testing.
+
+	\section{YOUR SOLUTION}
+	Please provide your solution here. How can you improve this system
+and address its limitations. XXXXXX
+\end{document}
